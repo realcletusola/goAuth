@@ -77,7 +77,7 @@ func UserRegistrationHandler() http.HandlerFunc {
 }
 
 
-// login handler 
+// login handler  
 func UserLoginHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var request database.UserLoginRequest 
