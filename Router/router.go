@@ -15,15 +15,16 @@ func NewRouter() http.Handler {
 	router := chi.NewRouter()
 
 	// set middlewares
-	apiRouter.Use(middleware.Logger)
-	apiRouter.Use(middleware.AllowContentType("application/json"))
-	apiRouter.Use(middleware.CleanPath)
-	apiRouter.Use(middleware.AllowContentEncoding("deflate","gzip"))
+	router.Use(middleware.Logger)
+	router.Use(middleware.AllowContentType("application/json"))
+	router.Use(middleware.CleanPath)
+	router.Use(middleware.AllowContentEncoding("deflate","gzip"))
 
 	// define routes 
 	router.Post("/signup", handler.UserRegistrationHandler) 
 	router.Post("/signin", handler.UserLoginHandler)
 	// apply middleware to signout route
-	router.With(middleware.BlacklistMiddleware).Post("/signout", handler.LogoutHandler)
+	router.With(auth_middleware.BlacklistMiddleware).Post("/signout", handler.LogoutHandler)
 
+	return router
 }
