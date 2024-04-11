@@ -14,7 +14,7 @@ func main(){
 	r := routes.NewRouter()
 
 	// define database connection string 
-	connectionString := 
+	connectionString := "postgres://postgres:postgres@localhost/goauth?sslmode=disable"
 
 	// database instance 
 	conn, err := database.InitDb(connectionString)
