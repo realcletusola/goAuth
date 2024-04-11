@@ -5,9 +5,17 @@ import (
 	"net/http"
 	"strings"
 	"regexp"
+	"log"
 
 	"github.com/cletushunsu/goAuth/Database"
 )
+
+
+// Error represents the structure of an error message
+type Error struct {
+    Field   string `json:"field"`
+    Message string `json:"message"`
+}
 
 // custom error message function 
 func errorMsg(w http.ResponseWriter, field string, message string) {
@@ -75,7 +83,7 @@ func isValidEmail(email string) (bool, string) {
 
 // password validator 
 func isValidPassword(password string, password2 string) (bool, string) {
-	if len(password) < 8 || or len(password2) < 8 { // check password length 
+	if len(password) < 8 || len(password2) < 8 { // check password length 
 		return false, "Password must be at least 8 characters"
 	} 
 	if len(strings.TrimSpace(password)) == 0 || len(strings.TrimSpace(password2)) == 0 { // check if password field is empty
