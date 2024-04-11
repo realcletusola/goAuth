@@ -18,7 +18,7 @@ type Error struct {
 }
 
 // custom error message function 
-func errorMsg(w http.ResponseWriter, field string, message string) {
+func ErrorMsg(w http.ResponseWriter, field string, message string) {
 	error := Error{Field: field, Message: message}
 	w.Header().Set("Content-Type", "application/json") // set http header 
 	w.WriteHeader(http.StatusBadRequest) // set http status code 
@@ -26,7 +26,7 @@ func errorMsg(w http.ResponseWriter, field string, message string) {
 }
 
 // username validation 
-func isValidUsername(username string) (bool, string) {
+func IsValidUsername(username string) (bool, string) {
 	var count int // declare count variale to check if username already exist
 
 	if len(username) < 3 || len(username) > 30 { // check username length
@@ -53,7 +53,7 @@ func isValidUsername(username string) (bool, string) {
 }
 
 // email validation  
-func isValidEmail(email string) (bool, string) {
+func IsValidEmail(email string) (bool, string) {
 	var count int // declare count variale to check if email already exist
 
 	if len(email) < 4 || len(email) > 160 { // check email length
@@ -82,7 +82,7 @@ func isValidEmail(email string) (bool, string) {
 }
 
 // password validator 
-func isValidPassword(password string, password2 string) (bool, string) {
+func IsValidPassword(password string, password2 string) (bool, string) {
 	if len(password) < 8 || len(password2) < 8 { // check password length 
 		return false, "Password must be at least 8 characters"
 	} 
