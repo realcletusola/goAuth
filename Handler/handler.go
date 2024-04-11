@@ -94,7 +94,7 @@ func UserRegistrationHandler() http.HandlerFunc {
 			log.Println(err.Error())
 			http.Error(w, "An error occured, please try again later", http.StatusInternalServerError)
 			return 
-		}
+		} 
 
 		// save user to database 
 		var userID int 
