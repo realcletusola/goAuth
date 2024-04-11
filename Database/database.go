@@ -40,13 +40,14 @@ type User struct {
 
 // struct that represents the profile model 
 type Profile struct {
-	ID			int		`json:"id"`
-	FullName	string	`json:"fullname"`
-	Username	string	`json:"username"`
-	Email		string 	`json:"email"`
-	Bio			string 	`json:"bio"`
+	ID			    int		`json:"id"`
+	FullName	    string	`json:"fullname"`
+	Username	    string	`json:"username"`
+	Email		    string 	`json:"email"`
+	Bio			    string 	`json:"bio"`
+	ProfilePicture  string  `json:"profile_pic"`	
 	// embedding User struct into profile struct
-	UserObj		User  // user struct instance on profile 
+	UserObj		    User  // user struct instance on profile 
 }
 
 // initialize database connection 
