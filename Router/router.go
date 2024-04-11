@@ -26,5 +26,4 @@ func NewRouter() http.Handler {
 	// apply middleware to signout route
 	router.With(middleware.BlacklistMiddleware).Post("/signout", handler.LogoutHandler)
 
-
 }
