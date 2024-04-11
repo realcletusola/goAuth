@@ -24,7 +24,7 @@ func BlacklistMiddleware(next http.Handler) http.Handler {
 		}
 
 		// call the next handler is token is not blacklisted
-		next.ServeHTTP(w, r)
+		next.ServeHTTP(w, r) 
 	}) 
 }
 
