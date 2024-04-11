@@ -23,7 +23,7 @@ func main(){
 	}
 
 	// make migrations
-	migration, err := database.createMigrations()
+	migration, err := database.createMigrations() 
 	if err != nil {
 		log.Println("Unable to make migrations")
 		log.Panic(err)
