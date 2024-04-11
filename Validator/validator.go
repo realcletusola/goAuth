@@ -43,7 +43,7 @@ func isValidUsername(username string) (bool, string) {
 	// query database for username if it already exists 
 	err :=  database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", username).Scan(&count)
 	if err != nil {
-		log.Println(err)	
+		log.Println(err)	 
 	}
 	if count > 0 {
 		return false, "Username already exists"
