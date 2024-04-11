@@ -80,7 +80,7 @@ func createMigrations() {
 			is_active BOOLEAN DEFAULT true
 		);
 	`
-	_, err := db.Exec(createUserTable)
+	_ , err := db.Exec(createUserTable)
 	if err != nil {
 		log.Fatal("Unable to create database table 'user'") 
 	}
@@ -99,11 +99,23 @@ func createMigrations() {
 			FOREIGN KEY (user_id) REFERENCES users(id)
 		);
 	`
-	_, err := db.Exec(createProfileTable)
+	_, err = db.Exec(createProfileTable)
 	if err != nil {
 		log.Fatal("Unable to create database table 'profile'")
 	}
 	log.Println("Migrations successfully created for profile")
+
+	// blacklisted_token table 
+	createBlacklistedTokenTable := `
+		CREATE TABLE IF NOT EXISTS blacklisted_token (
+			token  VARCHAR(300)
+		);
+	`
+	_, err = db.Exec(createBlacklistedTokenTable)
+	if err != nil {
+		log.Fatal("Unable to create database table for 'blacklisted_token'")
+	}
+	log.Println("Migrations successfully created for blacklisted_token")
 }
 
 
