@@ -8,11 +8,11 @@ import (
 )
 
 
-var db *sql.DB  // global database connection variable 
+var DB *sql.DB  // global database connection variable 
 
 // struct that represents the user registration model 
 type UserRegistrationRequest struct {
-	ID			int		`json:"id"`
+	ID			int		`json:"id"` 
 	Username	string	`json:"username"`
 	Email		string	`json:"email"`
 	Password	string	`json:"password"`
@@ -52,12 +52,12 @@ type Profile struct {
 
 // initialize database connection 
 func InitDb(connectionString string) {
-	db, err := sql.Open("postgres", connectionString)
+	DB, err := sql.Open("postgres", connectionString)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = db.Ping() // test database connection 
+	err = DB.Ping() // test database connection 
 	if err != nil {
 		log.Println("Unable to connect to database")
 		log.Fatal(err)
@@ -65,7 +65,7 @@ func InitDb(connectionString string) {
 
 	log.Println("Connected to database") // print message if connection is successful
 
-	defer db.Close() // defer database connection 
+	defer DB.Close() // defer database connection 
 }
 
 // migration function
@@ -81,7 +81,7 @@ func createMigrations() {
 			is_active BOOLEAN DEFAULT true
 		);
 	`
-	_ , err := db.Exec(createUserTable)
+	_ , err := DB.Exec(createUserTable)
 	if err != nil {
 		log.Fatal("Unable to create database table 'user'") 
 	}
@@ -100,7 +100,7 @@ func createMigrations() {
 			FOREIGN KEY (user_id) REFERENCES users(id)
 		);
 	`
-	_, err = db.Exec(createProfileTable)
+	_, err = DB.Exec(createProfileTable)
 	if err != nil {
 		log.Fatal("Unable to create database table 'profile'")
 	}
@@ -112,7 +112,7 @@ func createMigrations() {
 			token  VARCHAR(300)
 		);
 	`
-	_, err = db.Exec(createBlacklistedTokenTable)
+	_, err = DB.Exec(createBlacklistedTokenTable)
 	if err != nil {
 		log.Fatal("Unable to create database table for 'blacklisted_token'")
 	}

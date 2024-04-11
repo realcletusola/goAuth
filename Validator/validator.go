@@ -2,6 +2,7 @@ package validator
 
 import (
 	"encoding/json" 
+	// "database/sql"
 	"net/http"
 	"strings"
 	"regexp"
@@ -9,7 +10,6 @@ import (
 
 	"github.com/cletushunsu/goAuth/Database"
 )
-
 
 // Error represents the structure of an error message
 type Error struct {
@@ -41,7 +41,7 @@ func isValidUsername(username string) (bool, string) {
 		return false, "Username cannot contain special characters"
 	}
 	// query database for username if it already exists 
-	err := database.db.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", username).Scan(&count)
+	err :=  database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", username).Scan(&count)
 	if err != nil {
 		log.Println(err)	
 	}
@@ -68,7 +68,7 @@ func isValidEmail(email string) (bool, string) {
 		return false, "Invalid Email"
 	}
 	// query database for email if it already exists 
-	err := database.db.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", email).Scan(&count)
+	err := database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", email).Scan(&count)
 	if err != nil {
 		log.Println(err)
 		

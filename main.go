@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/cletushunu/goAuth/Router"
-	"github.com/cletushunu/goAuth/Database"
+	"github.com/cletushunsu/goAuth/Router"
+	"github.com/cletushunsu/goAuth/Database"
 )
 
 // main function 

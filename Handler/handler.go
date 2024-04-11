@@ -98,7 +98,7 @@ func UserRegistrationHandler() http.HandlerFunc {
 
 		// save user to database 
 		var userID int 
-		_, err = database.db.QueryRow("INSERT INTO users (username, email, password, is_admin, is_active) VALUES ($1, $2, $3, $4) RETURNING id",
+		_, err = database.DB.QueryRow("INSERT INTO users (username, email, password, is_admin, is_active) VALUES ($1, $2, $3, $4) RETURNING id",
 		request.Username, request.Email, string(hashedPassword), request.IsAdmin, request.IsActive).Scan(&userID)
 		if err != nil {
 			log.Println(err.Error())
@@ -107,12 +107,12 @@ func UserRegistrationHandler() http.HandlerFunc {
 		}
 
 		// create profile for user  
-		_, err = database.db.Exec("INSERT INTO profile (username, email, user_id) VALUES ($1, $2, $3)",
+		_, err = database.DB.Exec("INSERT INTO profile (username, email, user_id) VALUES ($1, $2, $3)",
 		request.Username, request.Email, userID)
 		if err != nil {
 			
 			// ensure data consistency by deleting user data from database if profile fails to be created
-			_, err := database.db.Exec("DELETE FROM users WHERE id = $1 ", userID) 
+			_, err := database.DB.Exec("DELETE FROM users WHERE id = $1 ", userID) 
 			if err != nil {
 				http.Error(w, "Unable to rollback data, please try again later", http.StatusInternalServerError)
 				return 
