@@ -12,7 +12,8 @@ import (
 // custom error message function 
 func errorMsg(w http.ResponseWriter, field string, message string) {
 	error := Error{Field: field, Message: message}
-	w.WriteHeader(http.StatusBadRequest) // set http header
+	w.Header().Set("Content-Type", "application/json") // set http header 
+	w.WriteHeader(http.StatusBadRequest) // set http status code 
 	json.NewEncoder(w).Encode(error) // write out error message in json 
 }
 
