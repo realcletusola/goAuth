@@ -51,7 +51,7 @@ type Profile struct {
 }
 
 // initialize database connection 
-func InitDb(connectionString string) {
+func InitDB(connectionString string) error {
 	DB, err := sql.Open("postgres", connectionString)
 	if err != nil {
 		log.Fatal(err)
@@ -66,11 +66,13 @@ func InitDb(connectionString string) {
 	log.Println("Connected to database") // print message if connection is successful
 
 	defer DB.Close() // defer database connection 
+
+	return nil
 }
 
 // migration function
-func createMigrations() {
-	// create user table 
+func CreateMigrations() error {
+	// Create user table
 	createUserTable := `
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -81,13 +83,14 @@ func createMigrations() {
 			is_active BOOLEAN DEFAULT true
 		);
 	`
-	_ , err := DB.Exec(createUserTable)
+	_, err := DB.Exec(createUserTable)
 	if err != nil {
-		log.Fatal("Unable to create database table 'user'") 
+		log.Fatal("Unable to create database table 'user':", err.Error())
+		return err
 	}
 	log.Println("Migrations successfully created for users")
 
-	// create profile table 
+	// Create profile table
 	createProfileTable := `
 		CREATE TABLE IF NOT EXISTS profile (
 			id SERIAL PRIMARY KEY,
@@ -102,11 +105,12 @@ func createMigrations() {
 	`
 	_, err = DB.Exec(createProfileTable)
 	if err != nil {
-		log.Fatal("Unable to create database table 'profile'")
+		log.Fatal("Unable to create database table 'profile':", err.Error())
+		return err
 	}
 	log.Println("Migrations successfully created for profile")
 
-	// blacklisted_token table 
+	// Create blacklisted_token table
 	createBlacklistedTokenTable := `
 		CREATE TABLE IF NOT EXISTS blacklisted_token (
 			token  VARCHAR(300)
@@ -114,9 +118,12 @@ func createMigrations() {
 	`
 	_, err = DB.Exec(createBlacklistedTokenTable)
 	if err != nil {
-		log.Fatal("Unable to create database table for 'blacklisted_token'")
+		log.Fatal("Unable to create database table for 'blacklisted_token':", err.Error())
+		return err
 	}
 	log.Println("Migrations successfully created for blacklisted_token")
+	
+	return nil
 }
 
 
