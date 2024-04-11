@@ -1,4 +1,4 @@
-package middleware
+package auth_middleware
 
 import(
 	"net/http"
@@ -15,7 +15,7 @@ func BlacklistMiddleware(next http.Handler) http.Handler {
 		token := r.Header.Get("Authorization")
 
 		// check if token is blaclisted using the isBlacklisted function 
-		blacklist := isBlacklisted(token)
+		blacklist := IsBlacklisted(token)
 		
 		// return unauthorized is token is blacklisted 
 		if blacklist {
@@ -29,7 +29,7 @@ func BlacklistMiddleware(next http.Handler) http.Handler {
 }
 
 // function to check the blacklist database if token is blacklisted 
-func isBlacklisted(token string) bool {
+func IsBlacklisted(token string) bool {
 	var count int 
 	row := database.DB.QueryRow("SELECT COUNT(*) FROM blacklisted_token WHERE token = $1", token)
 	err := row.Scan(&count)
@@ -40,7 +40,7 @@ func isBlacklisted(token string) bool {
 }
 
 // function to add token to blacklist
-func addToBlacklist(token string) error {
+func AddToBlacklist(token string) error {
 	// insert token into blacklist table in the database 
 	_, err := database.DB.Exec("INSERT INTO blacklisted_token (token) VALUES ($1)", token)
 	return err
