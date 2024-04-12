@@ -11,7 +11,7 @@
 <p>The JWT secret key is defined on line 24 in the handler.go file, this key can be set to anything(you can make it more secured by generating a long and strong random string).</p>
 <p>It's good practice to keep all valuable keys in .env file</p>
 
-<h4>Next:</h4>
+<h4>Next(todo):</h4>
 <p><b>Things that are yet to be done: </b></p>
 <li>Unit Test</li>
 <li>Crud operation on both User and Profile data</li>
