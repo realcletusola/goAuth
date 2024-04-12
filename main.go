@@ -17,16 +17,12 @@ func main(){
 	connectionString := "postgres://postgres:postgres@localhost/goauth?sslmode=disable"
 
 	// database instance 
-    err := database.InitDB(connectionString)
-    if err != nil {
-        log.Fatal("Error initializing database: ", err)
-    }
-
-	// make migrations
-	err = database.CreateMigrations()
-    if err != nil {
-        log.Fatal("Error running database migrations: ", err)
-    }
+    database.InitDB(connectionString)
+	
+	defer database.DB.Close()
+	
+	//make migrations 
+	database.CreateMigrations()
 
 	// start server 
 	log.Println("server listening on port 8080")
