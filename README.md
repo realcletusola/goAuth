@@ -15,4 +15,5 @@
 <p><b>Things that are yet to be done: </b></p>
 <li>Unit Test</li>
 <li>Crud operation on both User and Profile data</li>
+<li>Dockerization</li>
 <li>Deployment</li>
