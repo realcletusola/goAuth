@@ -41,7 +41,7 @@ func IsValidUsername(username string) (bool, string) {
 		return false, "Username cannot contain special characters"
 	}
 	// query database for username if it already exists 
-	err :=  database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email=$1", username).Scan(&count)
+	err :=  database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE username = $1", username).Scan(&count)
 	if err != nil {
 		log.Println(err)	 
 	}
@@ -83,19 +83,34 @@ func IsValidEmail(email string) (bool, string) {
 
 // password validator 
 func IsValidPassword(password string, password2 string) (bool, string) {
-	if len(password) < 8 || len(password2) < 8 { // check password length 
-		return false, "Password must be at least 8 characters"
+	if len(password) < 8 { // check password length 
+		return false, "Passwords must be at least 8 characters"
 	} 
-	if len(strings.TrimSpace(password)) == 0 || len(strings.TrimSpace(password2)) == 0 { // check if password field is empty
-		return false, "Password cannot be empty"
-	}
-	if password != password2 {
-		return false, "Both passwords must match"
+	if len(strings.TrimSpace(password)) == 0{ // check if password field is empty
+		return false, "Passwords cannot be empty"
 	}
 	// regular expression for checking password strength
-	regex := regexp.MustCompile(`^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$`)
-	if !regex.MatchString(password) || !regex.MatchString(password2) { // check password strength
-		return false, "Password must contain at least one uppercase, lowercase, digit, and special character"
+    regex := regexp.MustCompile(`[A-Z]`) // At least one uppercase letter
+    if !regex.MatchString(password) {
+        return false, "Passwords must contain at least on uppercase"
+    }
+	regex = regexp.MustCompile(`[a-z]`) // At least one lowercase letter
+    if !regex.MatchString(password) {
+        return false, "Passwords must contain at least on lowercase"
+    }
+
+    regex = regexp.MustCompile(`[0-9]`) // At least one digit
+    if !regex.MatchString(password) {
+        return false, "Passwords must contain at least on digit"
+    }
+
+    regex = regexp.MustCompile(`[^A-Za-z0-9]`) // At least one special character
+    if !regex.MatchString(password) {
+        return false, "Passwords must contain at least on special character"
+    }
+	
+	if password != password2 { // passwords must match 
+		return false, "Both passwords must match"
 	}
 	return true,"" // password is valid 
 }
