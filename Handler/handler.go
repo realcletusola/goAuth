@@ -3,14 +3,12 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	// "strconv"
 	"log"
 	"time"
 
 	"github.com/cletushunsu/goAuth/Database"
 	"github.com/cletushunsu/goAuth/Validator"
 	"github.com/cletushunsu/goAuth/Middleware"
-	// "github.com/go-chi/chi/v5"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -99,8 +97,8 @@ func UserRegistrationHandler(w http.ResponseWriter, r *http.Request) {
 
 	// save user to database 
 	var userID int 
-	err = database.DB.QueryRow("INSERT INTO users (username, email, password, is_admin, is_active) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-	request.Username, request.Email, string(hashedPassword), request.IsAdmin, request.IsActive).Scan(&userID)
+	err = database.DB.QueryRow("INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id",
+	request.Username, request.Email, string(hashedPassword)).Scan(&userID)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Unable to create user, please try again later", http.StatusInternalServerError)
