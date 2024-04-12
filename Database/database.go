@@ -17,14 +17,14 @@ type UserRegistrationRequest struct {
 	Email		string	`json:"email"`
 	Password	string	`json:"password"`
 	Password2	string 	`json:"password2"`
-	IsAdmin		bool	`json:"isAdmin"`
-	IsActive	bool	`json:"isActive"` 
+	// IsAdmin		bool	`json:"isAdmin"`
+	// IsActive	bool	`json:"isActive"` 
 }
 
 // struct that represents user login model 
 type UserLoginRequest struct{
 	ID		  int	  `json:"id"`
-	LoginId   string  `json:"loginId"` // this allows user login with either username or email
+	LoginId   string  `json:"login_id"` // this allows user login with either username or email
 	Password  string  `json:"password"`    
 }
 
@@ -52,7 +52,9 @@ type Profile struct {
 
 // initialize database connection 
 func InitDB(connectionString string) error {
-	DB, err := sql.Open("postgres", connectionString)
+	var err error
+
+	DB, err = sql.Open("postgres", connectionString)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -65,10 +67,11 @@ func InitDB(connectionString string) error {
 
 	log.Println("Connected to database") // print message if connection is successful
 
-	defer DB.Close() // defer database connection 
+	// defer DB.Close() // defer database connection 
+	return nil 
 
-	return nil
 }
+
 
 // migration function
 func CreateMigrations() error {
@@ -125,8 +128,3 @@ func CreateMigrations() error {
 	
 	return nil
 }
-
-
-
-
-
