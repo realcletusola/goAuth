@@ -163,7 +163,7 @@ func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
 		Username: dbUser.Username,
 		IsActive: dbUser.IsActive,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), // set expiring time to 24 hours
 		},
 		})
 
