@@ -1,7 +1,7 @@
 <h3>implementing jwt auth in golang</h3>
 
 <h4>Dirs</h4>
-<li><b>Database:</b> It contains the database init function and the migration function</li>
+<li><b>Database:</b> It contains the database initialization and migration function</li>
 <li><b>Handler:</b>This contains all user auth http handler functions</li>
 <li><b>Middleware:</b>The middleware.go file contains TokenBlackList middleware function(this function checks the gets token from header on signout request and check if it's blacklisted or not)</li>
 <li><b>Router:</b>All routes</li>
