@@ -17,7 +17,7 @@ func main(){
 	connectionString := "postgres://postgres:postgres@localhost/goauth?sslmode=disable"
 
 	// database instance 
-    database.InitDB(connectionString)
+   	database.InitDB(connectionString)
 	
 	defer database.DB.Close()
 	
