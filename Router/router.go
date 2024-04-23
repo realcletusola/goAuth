@@ -7,7 +7,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/cletushunsu/goAuth/Handler"
 	"github.com/cletushunsu/goAuth/Middleware"
-)
+)  
 
 // router initiation 
 func NewRouter() http.Handler {
