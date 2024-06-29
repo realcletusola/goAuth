@@ -9,12 +9,13 @@
 
 <h4>Note:</h4>
 <p>The JWT secret key is defined on line 24 in the handler.go file, this key can be set to anything(you can make it more secured by generating a long and strong random string).You can generate a secretkey with the below code: </p>
-            import (
-	        "crypto/rand"
-	        "encoding/base64"
-	        "fmt"
+    
+	import (
+	     "crypto/rand"
+	     "encoding/base64"
+	     "fmt"
         )
-
+	
         func generateSecretKey(length int) (string, error) {
 	        // Create a byte slice to hold the random bytes
 	        key := make([]byte, length)
