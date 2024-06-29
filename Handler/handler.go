@@ -9,7 +9,7 @@ import (
 	"github.com/cletushunsu/goAuth/Database"
 	"github.com/cletushunsu/goAuth/Validator"
 	"github.com/cletushunsu/goAuth/Middleware"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 )
 
